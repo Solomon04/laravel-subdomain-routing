@@ -11,10 +11,11 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::domain('{username}.' . env('APP_DOMAIN'))->group(function (){
+    Route::get('/', 'ProfileController@index');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+
