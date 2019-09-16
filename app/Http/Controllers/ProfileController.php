@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 
 class ProfileController extends Controller
@@ -14,8 +15,9 @@ class ProfileController extends Controller
     }
 
 
-    public function index()
+    public function show()
     {
-        return $this->username;
+        $user = User::where('username', '=', $this->username)->first();
+        return view('profiles.show')->with('user', $user);
     }
 }

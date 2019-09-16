@@ -12,10 +12,15 @@
 */
 
 Route::domain('{username}.' . env('APP_DOMAIN'))->group(function (){
-    Route::get('/', 'ProfileController@index');
+    Route::get('/', 'ProfileController@show')->name('profile');
 });
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', function (){
+    $users = \App\User::all();
+    return view('profiles.index')->with('users', $users);
+})->name('root');
+
+Route::get('/home', 'HomeController@index')->name('home');
 
